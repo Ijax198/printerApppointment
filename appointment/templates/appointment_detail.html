@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: cornsilk;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 10px;
+        }
+        
+        a {
+            padding: 8px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Appointment Detail</h1>
+        <p>ID: {{ appointment.appointmentId }}</p>
+        <p>Printer: {{ appointment.pid.pname }}</p>
+        <p>Date: {{ appointment.date }}</p>
+        <p>Programme: {{ appointment.programme }}</p>
+        <p>Status: {{ appointment.appointmentStatus }}</p>
+        {% if user.ustatus == 'owner' %}
+            {% if appointment.appointmentStatus == 'Pending' %}
+                <a href="{% url 'approve_appointment' appointment.appointmentId %}">Approve</a>
+            {% endif %}
+            <a href="{% url 'appointment_edit' appointment.appointmentId %}">Edit</a>
+            <a href="{% url 'appointment_delete' appointment.appointmentId %}">Delete</a>
+        {% endif %}
+    </div>
+</body>
+</html>

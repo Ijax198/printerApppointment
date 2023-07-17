@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f9ff;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a75ff;
+        }
+        
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            background-color: #1a75ff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        
+        button:hover {
+            background-color: #0052cc;
+        }
+        
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        th {
+            background-color: #1a75ff;
+            color: #fff;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #999;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Appointment</h1>
+        <form method="post" action="{% url 'appointment_create' %}">
+            {% csrf_token %}
+            <label for="pid">Printer:</label>
+            <select id="pid" name="pid" required>
+                {% for printer in printer %}
+                    <option value="{{ printer.pid }}">{{ printer.pname }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+            <label for="programme">Programme:</label>
+            <input type="text" id="programme" name="programme" required><br>
+            <button type="submit">Create</button>
+        </form>
+        <p class="note">Note: All fields are required.</p>
+    </div>
+</body>
+</html>

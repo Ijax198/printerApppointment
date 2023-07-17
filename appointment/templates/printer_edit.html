@@ -1,0 +1,76 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: cornsilk;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    
+    form {
+        width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    form input[type="text"],
+    form textarea,
+    form input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-bottom: 10px;
+    }
+    
+    form button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    form button:hover {
+        background-color: #555;
+    }
+    
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: #333;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: #555;
+    }
+</style>
+
+<h1>Edit Printer</h1>
+<form method="post" action="{% url 'printer_edit' printer.pid %}">
+    {% csrf_token %}
+    <label for="pname">Name:</label>
+    <input type="text" id="pname" name="pname" value="{{ printer.pname }}" required><br>
+    <label for="pdescription">Description:</label>
+    <textarea id="pdescription" name="pdescription" required>{{ printer.pdescription }}</textarea><br>
+    <button type="submit">Update</button>
+</form>
+<a href="{% url 'appointment_create' %}">Create Appointment</a>

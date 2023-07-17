@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 800px;
+            background-color: #e6a95a;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(201, 90, 90, 0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(107, 93, 93, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #CCCCCC;
+        }
+        
+        th {
+            background-color: #FF9800;
+            color: #FFFFFF;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        tr {
+            background-color: #f1c4c4;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #e6adad;
+        }
+        
+        td a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #FF9800;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        
+        td a:hover {
+            background-color: #FFB74D;
+        }
+        
+        li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        li a {
+            text-decoration: none;
+            color: #FFFFFF;
+            padding: 5px 10px;
+            border: 1px solid #FFFFFF;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        li a:hover {
+            background-color: #FFFFFF;
+            color:#f1c4c4;
+        }
+        
+        .action-buttons {
+            display: flex;
+        }
+        
+        .action-buttons a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Appointment List</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Printer</th>
+                <th>Date</th>
+                <th>Programme</th>
+                <th>Status</th>
+                <th>Action</th>
+                {% if user.ustatus == 'owner' %}
+                    <th>Action</th>
+                {% endif %}
+            </tr>
+            {% for appointment in appointment %}
+                <tr>
+                    <td>{{ appointment.appointmentId }}</td>
+                    <td>{{ appointment.pid.pname }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.programme }}</td>
+                    <td>{{ appointment.appointmentStatus }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'appointment_edit' appointment.appointmentId %}">Edit</a>
+                        <a href="{% url 'appointment_delete' appointment.appointmentId %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+
+        <li><a href="{% url 'index' %}">Back</a></li>
+    </div>
+</body>
+</html>

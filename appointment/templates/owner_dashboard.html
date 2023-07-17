@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Owner Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f5e9;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        td {
+            color: #666;
+        }
+
+        a {
+            color: #130bfb;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .button-danger {
+            background-color: #f44336;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            text-align: right;
+        }
+
+        .navbar a {
+            display: inline-block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'owner_logout' %}" class="button">Logout</a>
+    </div>
+
+    <h1>Welcome, {{ owner.owname }}</h1>
+    <table>
+        <tr>
+            <th>Owner ID:</th>
+            <td>{{ owner.owid }}</td>
+        </tr>
+        <tr>
+            <th>Phone:</th>
+            <td>{{ owner.owphone }}</td>
+        </tr>
+    </table>
+    <br>
+    <a href="{% url 'printer_create' %}" class="button">Add Printer</a>
+    <br>
+    <h2>Appointment List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Printer</th>
+            <th>Date</th>
+            <th>Programme</th>
+            <th>Status</th>
+            {% if user.ustatus == 'owner' %}
+                <th>Action</th>
+            {% endif %}
+        </tr>
+        {% for appointment in appointment %}
+            <tr>
+                <td>{{ appointment.appointmentId }}</td>
+                <td>{{ appointment.pid.pname }}</td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.programme }}</td>
+                <td>{{ appointment.appointmentStatus }}</td>
+                <td class="actions">
+                    {% if appointment.appointmentStatus == 'Pending' %}
+                        <a href="{% url 'approve_appointment' appointment.appointmentId %}" class="button">Approve</a>
+                        <a href="{% url 'disapprove_appointment' appointment.appointmentId %}" class="button button-danger">Disapprove</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'index' %}" class="button">Back</a>
+    <a href="{% url 'appointment_list' %}" class="button">Appointment List</a>   
+</body>
+</html>

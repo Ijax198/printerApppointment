@@ -1,0 +1,55 @@
+<style>
+    .printer-box {
+        border: 10px solid #070706;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #ffc87f;
+    }
+
+    .printer-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .printer-description {
+        margin-bottom: 5px;
+    }
+
+    .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+</style>
+<body bgcolor=#DEB887 >
+<h1>Printer</h1>
+<ul>
+    {% for printer in printer %}
+        <li class="printer-box">
+            <h1 class="printer-title">{{ printer.pname }}</h1>
+            <a href="{% url 'printer_detail' printer.pid %}" class="">{{ printer.pname }}</a>
+            <p class="printer-description">Description: {{ printer.pdescription }}</p>
+            <a href="{% url 'printer_edit' pid=printer.pid %}" class="button">Edit</a>
+            
+            <form method="post" action="{% url 'printer_delete' pid=printer.pid %}" onsubmit="return confirm('Are you sure you want to delete this printer?');">
+                {% csrf_token %}
+                <button type="submit" class="button">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+    <a href="{% url 'owner_dashboard' %}" class="button">Back</a>
+    <a href="{% url 'printer_create' %}" class="button">Add</a>
+</body>
+

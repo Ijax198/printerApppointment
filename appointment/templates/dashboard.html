@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome, {{ user.uname }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f5e9;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 400px;
+            background-color: rgb(93, 144, 253);
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(55, 65, 81, 1);
+            color: rgba(243, 244, 246, 1);
+        }
+        
+        th {
+            background-color: rgba(23, 42, 69, 1);
+            color: rgba(243, 244, 246, 1);
+        }
+        
+        .button-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(167, 139, 250, 1);
+            color: rgba(17, 24, 39, 1);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            margin-top: 10px;
+        }
+        
+        a:hover {
+            background-color: rgba(55, 65, 81, 1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ user.uname }}</h1>
+    <table>
+        <tr>
+            <th>User ID:</th>
+            <td>{{ user.uid }}</td>
+        </tr>
+        <tr>
+            <th>Phone:</th>
+            <td>{{ user.uphone }}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{ user.uemail }}</td>
+        </tr>
+        
+    </table>
+    <div class="button-container">
+        <a href="{% url 'appointment_create' %}">Book Printer</a>
+        <br>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    
+</body>
+</html>

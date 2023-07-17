@@ -1,0 +1,35 @@
+<style>
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #555;
+    }
+</style>
+
+<h1>Approve Appointment</h1>
+<p>Are you sure you want to approve this appointment?</p>
+<form method="post" action="{% url 'approve_appointment' appointment.appointmentId %}">
+    {% csrf_token %}
+    <button type="submit">Approve</button>
+</form>

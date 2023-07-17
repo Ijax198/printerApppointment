@@ -1,0 +1,1 @@
+web: gunicorn printerAppointment.wsgi --log-file -

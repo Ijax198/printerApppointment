@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5c6c6;
+        }
+        
+        .navbar {
+            background-color: #333;
+            padding: 20px;
+            margin-top: -20px;
+            margin-left: -20px;
+            margin-right: -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-left: auto; /* Updated */
+            margin-right: 10px;
+        }
+        
+        .navbar .title {
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 60px;
+            font-size: 32px;
+        }
+        
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        li a:hover {
+            background-color: #f5d71a;
+            color: #333;
+        }
+        
+        li a.vivid {
+            background-color: #6e1b1b;
+            color: #f5d71a;
+        }
+
+        li a.vivid:hover {
+            background-color: #f5d71a;
+            color: #6e1b1b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #0a0a0a;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #0c0c0c;
+        }
+        
+        th {
+            background-color: #6e1b1b;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        
+        td:not(:last-child) {
+            border-right: 1px solid #131312;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2 class="title">KPMB Printer Appointment System</h2>
+        <img src="{% static 'printer.jpg' %}" alt="Logo" class="logo">
+    </div>
+    <h1 style="margin-top: 80px;">Welcome to the Printer Appointment System</h1>
+
+    <ul>
+        <li><a href="{% url 'login' %}" class="vivid">User Login</a></li>
+        <li><a href="{% url 'owner_login' %}" class="vivid">Owner Login</a></li>
+    </ul>
+
+    {% block content %}
+    <h1 style="font-size: 32px;">Appointment List</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Printer</th>
+            <th>Date</th>
+            <th>Programme</th>
+            <th>Status</th>
+        </tr>
+        {% for appointment in appointment %}
+        <tr>
+            <td>{{ appointment.appointmentId }}</td>
+            <td>{{ appointment.pid.pname }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.programme }}</td>
+            <td>{{ appointment.appointmentStatus }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>
